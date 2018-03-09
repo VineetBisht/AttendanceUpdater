@@ -20,7 +20,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import main.AttendanceUpdater;
 import main.bg.ControlledScreen;
 import main.bg.ScreensController;
 
@@ -33,6 +36,7 @@ public class RegisterController implements Initializable, ControlledScreen{
 
     ResultSet rset;
     Connection conn;
+    ScreensController myController;
     
     @FXML
     private TextField name;
@@ -44,6 +48,9 @@ public class RegisterController implements Initializable, ControlledScreen{
     private PasswordField password;
 
     @FXML
+    private ImageView back;
+    
+    @FXML
     private PasswordField repassword;
 
     @FXML
@@ -52,6 +59,11 @@ public class RegisterController implements Initializable, ControlledScreen{
     @FXML
     private Label error;
 
+    @FXML
+    void letsGoBack(MouseEvent event){
+        myController.setScreen(AttendanceUpdater.loginID);
+    }
+            
     @FXML
     void registerUser(ActionEvent event) {
         if(password.getText().isEmpty() || name.getText().isEmpty() || username.getText().isEmpty() || repassword.getText().isEmpty()){
@@ -108,7 +120,8 @@ public class RegisterController implements Initializable, ControlledScreen{
      }
 
     @Override
-    public void setScreenParent(ScreensController screenPage) {
+    public void setScreenParent(ScreensController screenParent) {
+        myController=screenParent;
      }
 
     public void insert(){                                   // To insert a new account into the database

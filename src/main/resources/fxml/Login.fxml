@@ -15,10 +15,10 @@
             <Image url="@../images/68498060-school-wallpapers.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="login" defaultButton="true" layoutX="212.0" layoutY="215.0" mnemonicParsing="false" onAction="#loginAction" prefHeight="31.0" prefWidth="101.0" text="Login" />
-      <Label alignment="CENTER" layoutX="132.0" layoutY="106.0" prefHeight="38.0" prefWidth="94.0" text="Username" />
-      <Label alignment="CENTER" layoutX="132.0" layoutY="160.0" prefHeight="38.0" prefWidth="94.0" text="Password" />
-      <TextArea fx:id="username" layoutX="226.0" layoutY="107.0" prefHeight="37.0" prefWidth="200.0" promptText="eg. harrypotter" />
+      <Button fx:id="login" defaultButton="true" layoutX="221.0" layoutY="266.0" mnemonicParsing="false" onAction="#loginAction" prefHeight="31.0" prefWidth="101.0" text="Login" />
+      <Label alignment="CENTER" layoutX="127.0" layoutY="142.0" prefHeight="38.0" prefWidth="94.0" text="Username :" />
+      <Label alignment="CENTER" layoutX="127.0" layoutY="198.0" prefHeight="38.0" prefWidth="94.0" text="Password :" />
+      <TextArea fx:id="username" layoutX="232.0" layoutY="142.0" prefHeight="37.0" prefWidth="200.0" promptText="eg. harrypotter" />
       <ImageView fitHeight="81.0" fitWidth="94.0" layoutX="145.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/if_ilustracoes_04-01_1519777.png" />
@@ -29,8 +29,8 @@
             <Image url="@../images/cooltext278619891026622.png" />
          </image>
       </ImageView>
-      <Button fx:id="register" layoutX="336.0" layoutY="215.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="31.0" prefWidth="101.0" text="Register" />
+      <Button fx:id="register" layoutX="339.0" layoutY="266.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="31.0" prefWidth="101.0" text="Register" />
       <Label fx:id="error" alignment="CENTER" layoutX="232.0" layoutY="263.0" prefHeight="38.0" prefWidth="188.0" stylesheets="@../styles/button.css" visible="false" />
-      <PasswordField fx:id="password" layoutX="226.0" layoutY="160.0" prefHeight="33.0" prefWidth="200.0" promptText="*****" />
+      <PasswordField fx:id="password" layoutX="232.0" layoutY="198.0" prefHeight="33.0" prefWidth="200.0" promptText="*****" />
    </children>
 </AnchorPane>

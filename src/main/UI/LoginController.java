@@ -15,12 +15,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import main.AttendanceUpdater;
 import main.bg.ControlledScreen;
 import main.bg.ScreensController;
 
 public class LoginController implements Initializable, ControlledScreen{
     
+    ScreensController myController;
     ResultSet rset;
     Connection conn;
    
@@ -62,12 +65,13 @@ public class LoginController implements Initializable, ControlledScreen{
              error.setVisible(true);
              fadeIn.playFromStart(); 
             }
+            myController.setScreen(AttendanceUpdater.loginID);
        }
     }
 
     @FXML
     public void registerAction(ActionEvent event){
-      
+      myController.setScreen(AttendanceUpdater.registerID);
     }
 
     @Override
@@ -77,7 +81,8 @@ public class LoginController implements Initializable, ControlledScreen{
    }
 
     @Override
-    public void setScreenParent(ScreensController screenPage) {
+    public void setScreenParent(ScreensController screenParent) {
+    myController=screenParent;
     }
     
      public boolean loginCheck(){           //checking database for the user account
@@ -95,6 +100,7 @@ public class LoginController implements Initializable, ControlledScreen{
             }
             }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
             System.out.println("Cannot connect to database. "+e);
+            System.exit(0);
            }
         return false;
         }

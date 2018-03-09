@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import main.bg.ScreensController;
 
 /**
  *
@@ -30,23 +31,34 @@ import javafx.stage.StageStyle;
  */
 public class AttendanceUpdater extends Application {
     
+    public static String login="/main/resources/fxml/Login.fxml";
+    public static String loginID="login";
+    public static String register="/main/resources/fxml/Register.fxml";
+    public static String registerID="register";
+    private static Stage primaryStage;
+    
     @Override    
     public void start(Stage primaryStage) {
-       
-   try {
-       FXMLLoader obj=new FXMLLoader();
-       Parent parent=obj.load((getClass().getResource("/main/resources/fxml/Login.fxml")));
-       Scene scene =new Scene(parent);
-       primaryStage.setScene(scene);
-       } catch (IOException ex) {
-       ex.printStackTrace();
-       }
-   primaryStage.setAlwaysOnTop(true);
+    ScreensController mainController=new ScreensController();
+    mainController.loadScreen(loginID, login);
+    mainController.loadScreen(registerID,register);
+    
+    mainController.setScreen(loginID);
+    Group root=new Group();
+    root.getChildren().addAll(mainController);
+    Scene scene=new Scene(root);
+   
+   primaryStage.setScene(scene);
    primaryStage.setResizable(false);
    primaryStage.initStyle(StageStyle.UTILITY);
    primaryStage.show();
-    }
+   this.primaryStage=primaryStage;
+     }
 
+   public static void resizeScreen(){
+     primaryStage.sizeToScene();
+     primaryStage.centerOnScreen();
+   }
     /**
      * @param args the command line arguments
      */

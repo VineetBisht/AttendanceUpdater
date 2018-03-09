@@ -26,6 +26,7 @@ import javafx.util.Duration;
 import main.AttendanceUpdater;
 import main.bg.ControlledScreen;
 import main.bg.ScreensController;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,7 +34,8 @@ import main.bg.ScreensController;
  */
 
 public class RegisterController implements Initializable, ControlledScreen{
-
+   
+    private static final Logger logger=Logger.getLogger(RegisterController.class);
     ResultSet rset;
     Connection conn;
     ScreensController myController;
@@ -126,35 +128,35 @@ public class RegisterController implements Initializable, ControlledScreen{
 
     public void insert(){                                   // To insert a new account into the database
        try{   
-            Statement stmt=conn.createStatement();
             String userName=username.getText();
             String pass=password.getText();
             String url="jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             conn=DriverManager.getConnection(url,"root",null);
             System.out.println("Database connection successful.");
-            rset=stmt.executeQuery("INSERT INTO login values('"+name.getText()+"','"+userName+"','"+pass+"',0,0)");
+            Statement stmt=conn.createStatement();
+            stmt.executeUpdate("INSERT INTO login values('"+name.getText()+"','"+userName+"','"+pass+"',0,0)");
             
             }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
-            System.out.println("Cannot connect to database. "+e);
+            logger.error("insert",e);
            }
         
     }
     public boolean nameCheck(){                             // To check whether the name already exists or not
        try{
-            Statement stmt=conn.createStatement();
             String userName=username.getText();
             String url="jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             conn=DriverManager.getConnection(url,"root",null);
             System.out.println("Database connection successful.");
-            rset=stmt.executeQuery("select * from login WHERE Username="+userName);     
+            Statement stmt=conn.createStatement();
+            rset=stmt.executeQuery("select * from login WHERE Username='"+userName+"'");     
             if(rset.next()){
              return true;   
             }
             }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
-            System.out.println("Cannot connect to database. "+e);
-           }
+            logger.error("nameCheck",e);
+            }
         return false;
         }
 }   //class ends

@@ -7,8 +7,6 @@
 package main;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,13 +22,15 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.bg.ScreensController;
-
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 /**
  *
  * @author Vineet
  */
 public class AttendanceUpdater extends Application {
     
+    static Logger logger=Logger.getLogger(AttendanceUpdater.class);
     public static String login="/main/resources/fxml/Login.fxml";
     public static String loginID="login";
     public static String register="/main/resources/fxml/Register.fxml";
@@ -63,6 +63,7 @@ public class AttendanceUpdater extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        PropertyConfigurator.configure("log4j.properties");
         launch(args);
     }
     

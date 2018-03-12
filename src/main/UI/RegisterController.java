@@ -36,8 +36,6 @@ import org.apache.log4j.Logger;
 public class RegisterController implements Initializable, ControlledScreen{
    
     private static final Logger logger=Logger.getLogger(RegisterController.class);
-    ResultSet rset;
-    Connection conn;
     ScreensController myController;
     
     @FXML
@@ -45,6 +43,12 @@ public class RegisterController implements Initializable, ControlledScreen{
 
     @FXML
     private TextField username;
+    
+    @FXML
+    private TextField address;
+    
+    @FXML
+    private TextField phone;
 
     @FXML
     private PasswordField password;
@@ -117,8 +121,6 @@ public class RegisterController implements Initializable, ControlledScreen{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    rset=null;
-    conn=null;
      }
 
     @Override
@@ -132,10 +134,17 @@ public class RegisterController implements Initializable, ControlledScreen{
             String pass=password.getText();
             String url="jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            conn=DriverManager.getConnection(url,"root",null);
+            Connection conn=DriverManager.getConnection(url,"root",null);
             System.out.println("Database connection successful.");
             Statement stmt=conn.createStatement();
-            stmt.executeUpdate("INSERT INTO login values('"+name.getText()+"','"+userName+"','"+pass+"',0,0)");
+            stmt.executeUpdate("INSERT INTO login values("
+                    + "'"
+                    +name.getText()
+                    +"','"+userName
+                    +"','"+pass
+                    +"','"+address.getText()
+                    +"','"+phone.getText()
+                    +"',0,0,false)");
             
             }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
             logger.error("insert",e);
@@ -147,10 +156,10 @@ public class RegisterController implements Initializable, ControlledScreen{
             String userName=username.getText();
             String url="jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            conn=DriverManager.getConnection(url,"root",null);
+            Connection conn=DriverManager.getConnection(url,"root",null);
             System.out.println("Database connection successful.");
             Statement stmt=conn.createStatement();
-            rset=stmt.executeQuery("select * from login WHERE Username='"+userName+"'");     
+            ResultSet rset=stmt.executeQuery("select * from login WHERE Username='"+userName+"'");     
             if(rset.next()){
              return true;   
             }

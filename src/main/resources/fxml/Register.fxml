@@ -30,16 +30,16 @@
             <Image url="@../images/cooltext278766195202545.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="150.0" layoutY="114.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Full Name :" />
-      <Label alignment="CENTER" layoutX="150.0" layoutY="153.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Username :" />
-      <Label alignment="CENTER" layoutX="141.0" layoutY="230.0" prefHeight="38.0" prefWidth="113.0" stylesheets="@../styles/button.css" text="Re-enter Pass. :" />
-      <Label alignment="CENTER" layoutX="150.0" layoutY="192.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Password :" />
-      <TextField fx:id="name" layoutX="288.0" layoutY="120.0" promptText="eg. Daniel" />
-      <TextField fx:id="username" layoutX="288.0" layoutY="159.0" promptText="eg. harrypotter" />
-      <Button fx:id="register" defaultButton="true" layoutX="391.0" layoutY="293.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="38.0" prefWidth="105.0" stylesheets="@../styles/button.css" text="Register" />
+      <Label alignment="CENTER" layoutX="69.0" layoutY="96.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Full Name :" />
+      <Label alignment="CENTER" layoutX="69.0" layoutY="135.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Username :" />
+      <Label alignment="CENTER" layoutX="60.0" layoutY="231.0" prefHeight="38.0" prefWidth="113.0" stylesheets="@../styles/button.css" text="Re-enter Pass. :" />
+      <Label alignment="CENTER" layoutX="69.0" layoutY="186.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Password :" />
+      <TextField fx:id="name" layoutX="221.0" layoutY="102.0" promptText="eg. Daniel" />
+      <TextField fx:id="username" layoutX="220.0" layoutY="148.0" promptText="eg. harrypotter" />
+      <Button fx:id="register" defaultButton="true" layoutX="458.0" layoutY="344.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="38.0" prefWidth="105.0" stylesheets="@../styles/button.css" text="Register" />
       <Label fx:id="error" alignment="CENTER" layoutX="260.0" layoutY="274.0" prefHeight="38.0" prefWidth="198.0" stylesheets="@../styles/button.css" visible="false" />
-      <PasswordField fx:id="password" layoutX="288.0" layoutY="198.0" promptText="*****" />
-      <PasswordField fx:id="repassword" layoutX="288.0" layoutY="236.0" promptText="*****" />
+      <PasswordField fx:id="password" layoutX="220.0" layoutY="192.0" promptText="*****" />
+      <PasswordField fx:id="repassword" layoutX="220.0" layoutY="237.0" promptText="*****" />
       <ImageView fx:id="back" fitHeight="60.0" fitWidth="60.0" layoutX="9.0" layoutY="8.0" onMouseClicked="#letsGoBack" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/back-24838_1280.png" />
@@ -48,5 +48,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
+      <Label alignment="CENTER" layoutX="69.0" layoutY="275.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Address:" />
+      <Label alignment="CENTER" layoutX="69.0" layoutY="319.0" prefHeight="38.0" prefWidth="94.0" stylesheets="@../styles/button.css" text="Phone No. :" />
+      <TextField fx:id="address" layoutX="220.0" layoutY="282.0" promptText="location here" />
+      <TextField fx:id="phone" layoutX="220.0" layoutY="326.0" promptText="+91" />
    </children>
 </AnchorPane>

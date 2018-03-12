@@ -32,17 +32,20 @@ public class AttendanceUpdater extends Application {
     
     static Logger logger=Logger.getLogger(AttendanceUpdater.class);
     public static String login="/main/resources/fxml/Login.fxml";
-    public static String loginID="login";
+    public static String loginID="Login";
     public static String register="/main/resources/fxml/Register.fxml";
-    public static String registerID="register";
+    public static String registerID="Register";
+    public static String menu="/main/resources/fxml/Menu.fxml";
+    public static String menuID="Menu";
     private static Stage primaryStage;
+    
     
     @Override    
     public void start(Stage primaryStage) {
     ScreensController mainController=new ScreensController();
     mainController.loadScreen(loginID, login);
     mainController.loadScreen(registerID,register);
-    
+    mainController.loadScreen(menuID, menu);
     mainController.setScreen(loginID);
     Group root=new Group();
     root.getChildren().addAll(mainController);

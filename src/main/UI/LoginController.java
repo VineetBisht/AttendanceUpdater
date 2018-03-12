@@ -28,8 +28,6 @@ import org.apache.log4j.Logger;
 public class LoginController implements Initializable, ControlledScreen{
     private static final Logger logger=Logger.getLogger(LoginController.class);
     ScreensController myController;
-    ResultSet rset;
-    Connection conn;
    
     @FXML
     private Button login;
@@ -69,6 +67,7 @@ public class LoginController implements Initializable, ControlledScreen{
              error.setVisible(true);
              fadeIn.playFromStart(); 
             }
+         myController.setScreen(AttendanceUpdater.menuID);
        }else{  error.setText("Invalid Entry!");
              FadeTransition fadeIn = new FadeTransition(Duration.millis(1500),error);
              fadeIn.setFromValue(0.0);
@@ -88,9 +87,6 @@ public class LoginController implements Initializable, ControlledScreen{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    rset=null;
-    conn=null;
-     
    }
 
     @Override
@@ -104,11 +100,14 @@ public class LoginController implements Initializable, ControlledScreen{
             String pass=password.getText();
             String url="jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            conn=DriverManager.getConnection(url,"root",null);
+            Connection conn=DriverManager.getConnection(url,"root",null);
             System.out.println("Database connection successful.");
             Statement stmt=conn.createStatement();
-            rset=stmt.executeQuery("select * from login where Username='"+userName+"' and Password='"+pass+"'");     
+            ResultSet rset=stmt.executeQuery("select * from login where Username='"+userName+"' and Password='"+pass+"'");     
             if(rset.next()){
+            Statement stmt2=conn.createStatement();
+            int rset2=stmt2.executeUpdate("update login set LoggedIn=true where Username='"+userName+"'"); 
+            System.out.println("Logged In successfully"+rset2);
              return true;   
             }
             }catch(Exception e){

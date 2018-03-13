@@ -24,14 +24,14 @@ import main.bg.ControlledScreen;
 import main.bg.ScreensController;
 import org.apache.log4j.Logger;
 
+public class LoginController implements Initializable, ControlledScreen {
 
-public class LoginController implements Initializable, ControlledScreen{
-    private static final Logger logger=Logger.getLogger(LoginController.class);
+    private static final Logger logger = Logger.getLogger(LoginController.class);
     ScreensController myController;
-   
+
     @FXML
     private Button login;
-    
+
     @FXML
     private Button register;
 
@@ -40,79 +40,79 @@ public class LoginController implements Initializable, ControlledScreen{
 
     @FXML
     private PasswordField password;
-    
+
     @FXML
     private Label error;
-   
+
     @FXML
-    public void loginAction(ActionEvent event){
-       if(password.getText().isEmpty() || username.getText().isEmpty()){
+    public void loginAction(ActionEvent event) {
+        if (password.getText().isEmpty() || username.getText().isEmpty()) {
             error.setText("Fields empty!");
-             FadeTransition fadeIn = new FadeTransition(Duration.millis(1500),error);
-             fadeIn.setFromValue(0.0);
-             fadeIn.setToValue(1.0);
-             fadeIn.setAutoReverse(true);
-         if(!error.isVisible()){
-             error.setVisible(true);
-             fadeIn.playFromStart(); 
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(1500), error);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.setAutoReverse(true);
+            if (!error.isVisible()) {
+                error.setVisible(true);
+                fadeIn.playFromStart();
             }
-       }
-       else if(loginCheck()){
-             error.setText("Successful");
-             FadeTransition fadeIn = new FadeTransition(Duration.millis(1500),error);
-             fadeIn.setFromValue(0.0);
-             fadeIn.setToValue(1.0);
-             fadeIn.setAutoReverse(true);
-         if(!error.isVisible()){
-             error.setVisible(true);
-             fadeIn.playFromStart(); 
+        } else if (loginCheck()) {
+            error.setText("Successful");
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(1500), error);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.setAutoReverse(true);
+            if (!error.isVisible()) {
+                error.setVisible(true);
+                fadeIn.playFromStart();
             }
-         myController.setScreen(AttendanceUpdater.menuID);
-       }else{  error.setText("Invalid Entry!");
-             FadeTransition fadeIn = new FadeTransition(Duration.millis(1500),error);
-             fadeIn.setFromValue(0.0);
-             fadeIn.setToValue(1.0);
-             fadeIn.setAutoReverse(true);
-         if(!error.isVisible()){
-             error.setVisible(true);
-             fadeIn.playFromStart(); 
+            myController.setScreen(AttendanceUpdater.menuID);
+        } else {
+            error.setText("Invalid Entry!");
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(1500), error);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.setAutoReverse(true);
+            if (!error.isVisible()) {
+                error.setVisible(true);
+                fadeIn.playFromStart();
             }
-       }
+        }
     }
 
     @FXML
-    public void registerAction(ActionEvent event) throws FileNotFoundException, IOException{
+    public void registerAction(ActionEvent event) throws FileNotFoundException, IOException {
         myController.setScreen(AttendanceUpdater.registerID);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-   }
+    }
 
     @Override
     public void setScreenParent(ScreensController screenParent) {
-    myController=screenParent;
+        myController = screenParent;
     }
-    
-     public boolean loginCheck(){           //checking database for the user account
-            try{
-            String userName=username.getText();
-            String pass=password.getText();
-            String url="jdbc:mysql://localhost:3306/satyam";
+
+    public boolean loginCheck() {           //checking database for the user account
+        try {
+            String userName = username.getText().trim();
+            String pass = password.getText().trim();
+            String url = "jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            Connection conn=DriverManager.getConnection(url,"root",null);
+            Connection conn = DriverManager.getConnection(url, "root", null);
             System.out.println("Database connection successful.");
-            Statement stmt=conn.createStatement();
-            ResultSet rset=stmt.executeQuery("select * from login where Username='"+userName+"' and Password='"+pass+"'");     
-            if(rset.next()){
-            Statement stmt2=conn.createStatement();
-            int rset2=stmt2.executeUpdate("update login set LoggedIn=true where Username='"+userName+"'"); 
-            System.out.println("Logged In successfully"+rset2);
-             return true;   
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("select * from login where Username='" + userName + "' and Password='" + pass + "'");
+            if (rset.next()) {
+                Statement stmt2 = conn.createStatement();
+                int rset2 = stmt2.executeUpdate("update login set LoggedIn=true where Username='" + userName + "'");
+                System.out.println("Logged In successfully" + rset2);
+                return true;
             }
-            }catch(Exception e){
-            logger.error("loginCheck",e);
-           }
-        return false;
+        } catch (Exception e) {
+            logger.error("loginCheck", e);
         }
+        return false;
+    }
 }

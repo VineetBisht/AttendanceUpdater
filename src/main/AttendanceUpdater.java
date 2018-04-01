@@ -18,7 +18,7 @@ import org.apache.log4j.PropertyConfigurator;
  *
  * @author Vineet
  */
-public class AttendanceUpdater extends Application {
+  public class AttendanceUpdater extends Application {
 
     static Logger LOGGER = Logger.getLogger(AttendanceUpdater.class);
     public static String login = "/main/resources/fxml/Login.fxml";
@@ -29,7 +29,7 @@ public class AttendanceUpdater extends Application {
     public static String menuID = "Menu";
     public static String details = "/main/resources/fxml/Details.fxml";
     public static String detailsID = "Details";
-    public static String admin = "/main/resources/fxml/MainAdmin.fxml";
+    public static String admin = "/main/resources/fxml/MA.fxml";
     public static String adminID = "MainAdmin";
     private static Stage primaryStage;
 
@@ -62,7 +62,6 @@ public class AttendanceUpdater extends Application {
     /**
      * @param args the command line arguments
      */
-    @SuppressWarnings("all")
     public static void main(String[] args) {
         
     PropertyConfigurator.configure("log4j.properties");    

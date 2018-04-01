@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="530.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UI.MAController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="35.0" prefWidth="639.0" AnchorPane.bottomAnchor="431.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
         <menus>
@@ -30,17 +30,17 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.27424749163879597" layoutY="27.0" prefHeight="373.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+      <SplitPane dividerPositions="0.2119309262166405" layoutY="27.0" prefHeight="373.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="145.0">
                <children>
-                  <TextField fx:id="search" layoutX="6.0" layoutY="14.0" prefHeight="37.0" prefWidth="160.0" promptText="Search By Name" AnchorPane.bottomAnchor="378.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="14.0" />
-                  <ListView fx:id="results" layoutX="-3.0" layoutY="59.0" prefHeight="364.0" prefWidth="172.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="59.0" />
+                  <TextField fx:id="search" layoutX="6.0" layoutY="7.0" prefHeight="35.0" prefWidth="138.0" promptText="Search By Name" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="7.0" />
+                  <ListView fx:id="results" layoutX="6.0" layoutY="54.0" prefHeight="439.0" prefWidth="138.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="54.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TabPane fx:id="tabs" prefHeight="365.0" prefWidth="431.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TabPane fx:id="tabs" prefHeight="495.0" prefWidth="559.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>

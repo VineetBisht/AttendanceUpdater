@@ -70,7 +70,7 @@ public class LoginController implements Initializable, ControlledScreen {
            if(temp==0)
             myController.setScreen(AttendanceUpdater.menuID);
            else 
-            myController.setScreen(AttendanceUpdater.admin);
+            myController.setScreen(AttendanceUpdater.adminID);
            
         } else {
             error.setText("Invalid Entry!");

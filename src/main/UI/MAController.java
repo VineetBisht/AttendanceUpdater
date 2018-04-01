@@ -1,3 +1,5 @@
+package main.UI;
+
 
 
 /*
@@ -8,7 +10,6 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,12 +29,11 @@ import main.bg.ScreensController;
  *
  * @author Vineet
  */
-public class MAC implements Initializable, ControlledScreen {
+public class MAController implements Initializable, ControlledScreen {
 
-    static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MAC.class);
+    static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MAController.class);
     ScreensController myController;
-
-    @FXML
+  @FXML
     private MenuItem save;
 
     @FXML
@@ -52,33 +52,7 @@ public class MAC implements Initializable, ControlledScreen {
     private TabPane tabs;
 
     private void onSelect() {
-        results.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                int i = results.getSelectionModel().getSelectedIndex();
-                try {
-
-                    if (i == 0) {
-                        Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("/main/resources/fxml/Tab.fxml"));
-                        Tab tb = new Tab("temp1", node);
-                        tabs.getTabs().add(tb);
-
-                    } else if (i == 1) {
-                        Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("/main/resources/fxml/Tab.fxml"));
-                        Tab tb = new Tab("temp2", node);
-                        tabs.getTabs().add(tb);
-
-                    }
-
-                } catch (IOException ex) {
-                    LOGGER.error("Admin Tab: " + ex);
-                }
             }
-
-        });
-
-    }
 
     @FXML
     public void onSearch(MouseEvent me) {
@@ -87,7 +61,27 @@ public class MAC implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         results.getItems().addAll("temp1", "temp2");
-    }
+        results.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            int i = results.getSelectionModel().getSelectedIndex();
+            try {
+                Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("/main/resources/fxml/Tab.fxml"));
+               
+                if (i == 0) {
+                    Tab tb = new Tab("temp1", node);
+                    tabs.getTabs().add(tb);
+                    
+                } else if (i == 1) {
+                    Tab tb = new Tab("temp2", node);
+                    tabs.getTabs().add(tb);
+                    
+                }
+                
+            } catch (IOException ex) {
+                LOGGER.error("Admin Tab: " + ex);
+            }
+        });
+
+ }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {

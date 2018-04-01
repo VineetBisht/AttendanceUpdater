@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
  *
  * @author Angie
  */
+
 public class ScreensController  extends StackPane {
     //Holds the screens to be displayed
 
@@ -38,11 +39,6 @@ public class ScreensController  extends StackPane {
     
     public ScreensController() {
         super();
-    }
-
-    //Add the screen to the collection
-    public void addScreen(String name, String resource) {
-        screens.put(name, resource);
     }
 
     //Returns the Node with the appropriate name
@@ -54,7 +50,7 @@ public class ScreensController  extends StackPane {
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
         LOGGER.info("Loading Screen :"+resource);
-        addScreen(name, resource);
+        screens.put(name, resource);
         return true;
     }
 
@@ -62,6 +58,7 @@ public class ScreensController  extends StackPane {
     //First it makes sure the screen has been already loaded.  Then if there is more than
     //one screen the new screen is been added second, and then the current screen is removed.
     // If there isn't any screen being displayed, the new screen is just added to the root.
+   
     public boolean setScreen(final String name){       
         if (screens.get(name) != null) {   //screen loaded
         try{
@@ -76,8 +73,8 @@ public class ScreensController  extends StackPane {
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(1000), (ActionEvent t) -> {
-                            getChildren().remove(0);                    //remove the displayed screen
-                            getChildren().add(0, loadScreen);     //add the screen
+                            getChildren().remove(0);                       //remove the displayed screen
+                            getChildren().add(0, loadScreen);              //add the screen
                             AttendanceUpdater.resizeScreen();
                             Timeline fadeIn = new Timeline(
                                     new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
@@ -88,6 +85,7 @@ public class ScreensController  extends StackPane {
 
             } else {
             setOpacity(0.0);
+            getChildren().add(0, loadScreen);              //add the screen
             Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                         new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));

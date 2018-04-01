@@ -47,6 +47,7 @@ public class AttendanceUpdater extends Application {
         root.getChildren().addAll(mainController);
         Scene scene = new Scene(root);
         
+        primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.UTILITY);
@@ -61,9 +62,10 @@ public class AttendanceUpdater extends Application {
     /**
      * @param args the command line arguments
      */
+    @SuppressWarnings("all")
     public static void main(String[] args) {
         
-    PropertyConfigurator.configure("C:\\Users\\VINEET\\Documents\\NetBeansProjects\\AttendanceUpdater\\log4j.properties");    
+    PropertyConfigurator.configure("log4j.properties");    
     launch(args);
     }
 

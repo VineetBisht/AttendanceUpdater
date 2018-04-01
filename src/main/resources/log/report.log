@@ -1,6 +1,1 @@
-2018-04-01 16:34:24 INFO  AttendanceUpdater:52 - Loading Screen :/main/resources/fxml/Login.fxml
-2018-04-01 16:34:24 INFO  AttendanceUpdater:52 - Loading Screen :/main/resources/fxml/Register.fxml
-2018-04-01 16:34:24 INFO  AttendanceUpdater:52 - Loading Screen :/main/resources/fxml/Menu.fxml
-2018-04-01 16:34:24 INFO  AttendanceUpdater:52 - Loading Screen :/main/resources/fxml/MA.fxml
-2018-04-01 16:34:24 INFO  AttendanceUpdater:71 - Setting Screen: /main/resources/fxml/Login.fxml
-2018-04-01 16:34:31 INFO  AttendanceUpdater:71 - Setting Screen: /main/resources/fxml/MA.fxml
+2018-04-02 00:15:08 INFO  AttendanceUpdater:70 - Setting Screen: /main/resources/fxml/MA.fxml

@@ -12,19 +12,23 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import main.bg.ControlledScreen;
 import main.bg.ScreensController;
@@ -37,6 +41,7 @@ public class MAController implements Initializable, ControlledScreen {
 
     static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MAController.class);
     ScreensController myController;
+    static String NAME;
 
     @FXML
     private MenuItem save;
@@ -61,14 +66,7 @@ public class MAController implements Initializable, ControlledScreen {
 
     @FXML
     private TabPane tabs;
-
-    private void onSelect() {
-    }
-
-    @FXML
-    public void onSearch(MouseEvent me) {
-    }
-
+    
     @FXML
     public void onPressed(KeyEvent ke) {
         try {
@@ -92,11 +90,13 @@ public class MAController implements Initializable, ControlledScreen {
     public void initialize(URL location, ResourceBundle resources) {
         results.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             String selected = results.getSelectionModel().getSelectedItem();
+            NAME=selected;
             try {
+                FXMLLoader fxmlLoader=new FXMLLoader();
                 Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("/main/resources/fxml/Tab.fxml"));
                 Tab tb = new Tab(selected, node);
                 tabs.getTabs().add(tb);
-
+                
             } catch (IOException ex) {
                 LOGGER.error("Results Initialize: " + ex);
             }

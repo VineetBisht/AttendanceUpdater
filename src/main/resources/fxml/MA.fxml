@@ -10,17 +10,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="530.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UI.MAController">
+<AnchorPane id="AnchorPane" prefHeight="597.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.UI.MAController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="35.0" prefWidth="639.0" AnchorPane.bottomAnchor="431.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Generate Fee PDF" />
+                  <MenuItem fx:id="generate" mnemonicParsing="false" text="Generate Fee PDF" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="saveNlog" mnemonicParsing="false" text="Save &amp; Logout" />
-                  <MenuItem mnemonicParsing="false" text="Exit Without Saving" />
+                  <MenuItem fx:id="saveNexit" mnemonicParsing="false" text="Save &amp; Logout" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit Without Saving" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -30,12 +30,12 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.2119309262166405" layoutY="27.0" prefHeight="373.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+      <SplitPane dividerPositions="0.15148609779482264" layoutY="27.0" prefHeight="603.0" prefWidth="1005.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="145.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="601.0" prefWidth="165.0">
                <children>
-                  <TextField fx:id="search" layoutX="6.0" layoutY="7.0" onKeyReleased="#onPressed" prefHeight="35.0" prefWidth="138.0" promptText="Search By Name" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="7.0" />
-                  <ListView fx:id="results" layoutX="6.0" layoutY="54.0" prefHeight="439.0" prefWidth="138.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="54.0" />
+                  <TextField fx:id="search" layoutX="6.0" layoutY="9.0" onKeyReleased="#onPressed" prefHeight="35.0" prefWidth="118.0" promptText="Search By Name" AnchorPane.bottomAnchor="524.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="9.0" />
+                  <ListView fx:id="results" layoutX="6.0" layoutY="54.0" prefHeight="539.0" prefWidth="206.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="54.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

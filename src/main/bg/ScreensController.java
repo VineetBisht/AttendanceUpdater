@@ -49,7 +49,6 @@ public class ScreensController  extends StackPane {
     //Loads the fxml file, add the screen to the screens collection and
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
-        LOGGER.info("Loading Screen :"+resource);
         screens.put(name, resource);
         return true;
     }

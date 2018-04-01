@@ -41,7 +41,7 @@ import org.apache.log4j.PropertyConfigurator;
         mainController.loadScreen(registerID, register);
         mainController.loadScreen(menuID, menu);
         mainController.loadScreen(adminID,admin);
-        mainController.setScreen(loginID);
+        mainController.setScreen(adminID);
        
         Group root = new Group();
         root.getChildren().addAll(mainController);

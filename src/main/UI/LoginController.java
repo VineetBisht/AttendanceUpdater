@@ -1,6 +1,5 @@
 package main.UI;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +25,7 @@ import org.apache.log4j.Logger;
 
 public class LoginController implements Initializable, ControlledScreen {
 
-    private static final Logger logger = Logger.getLogger(LoginController.class);
+    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
     ScreensController myController;
 
     @FXML
@@ -46,6 +45,7 @@ public class LoginController implements Initializable, ControlledScreen {
 
     @FXML
     public void loginAction(ActionEvent event) {
+        int temp=4;
         if (password.getText().isEmpty() || username.getText().isEmpty()) {
             error.setText("Fields empty!");
             FadeTransition fadeIn = new FadeTransition(Duration.millis(1500), error);
@@ -56,7 +56,8 @@ public class LoginController implements Initializable, ControlledScreen {
                 error.setVisible(true);
                 fadeIn.playFromStart();
             }
-        } else if (loginCheck()) {
+        } else if ((temp=loginCheck())==0 || temp==1 ){
+           
             error.setText("Successful");
             FadeTransition fadeIn = new FadeTransition(Duration.millis(1500), error);
             fadeIn.setFromValue(0.0);
@@ -66,7 +67,11 @@ public class LoginController implements Initializable, ControlledScreen {
                 error.setVisible(true);
                 fadeIn.playFromStart();
             }
+           if(temp==0)
             myController.setScreen(AttendanceUpdater.menuID);
+           else 
+            myController.setScreen(AttendanceUpdater.admin);
+           
         } else {
             error.setText("Invalid Entry!");
             FadeTransition fadeIn = new FadeTransition(Duration.millis(1500), error);
@@ -94,7 +99,7 @@ public class LoginController implements Initializable, ControlledScreen {
         myController = screenParent;
     }
 
-    public boolean loginCheck() {           //checking database for the user account
+    public int loginCheck() {           //checking database for the user account
         try {
             String userName = username.getText().trim();
             String pass = password.getText().trim();
@@ -108,11 +113,16 @@ public class LoginController implements Initializable, ControlledScreen {
                 Statement stmt2 = conn.createStatement();
                 int rset2 = stmt2.executeUpdate("update login set LoggedIn=true where Username='" + userName + "'");
                 System.out.println("Logged In successfully" + rset2);
-                return true;
+                
+                boolean admin=rset.getBoolean("Admin");
+                if(admin)
+                    return 1;
+                else 
+                    return 0;
             }
-        } catch (Exception e) {
-            logger.error("loginCheck", e);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
+            LOGGER.error("loginCheck", e);
         }
-        return false;
+        return 2;
     }
 }

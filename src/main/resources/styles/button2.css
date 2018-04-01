@@ -3,17 +3,11 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #1F0703;
+    -fx-text-fill: #000;
     -fx-opacity: 0.6;
-}
-
-.checkbox{
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #1F062D;
-    -fx-opacity: 0.6;
+	    
 }
 
 .label-bright {

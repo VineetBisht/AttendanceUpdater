@@ -8,13 +8,10 @@ package main.UI;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,9 +37,9 @@ import org.apache.log4j.Logger;
 public class MenuController implements Initializable, ControlledScreen {
 
     ScreensController myController;
-    private static final Logger logger = Logger.getLogger(MenuController.class);
     String name;
-
+    private static final Logger LOGGER = Logger.getLogger(MenuController.class);        
+    
     @FXML
     private Button report;
 
@@ -63,11 +60,15 @@ public class MenuController implements Initializable, ControlledScreen {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         name = "";
-        try {  
+        System.out.println("Initializing");
+        try {
+            punchIn.setDisable(false);
             table.getColumns().clear();
             TableColumn attendance = new TableColumn("Attendance");
             attendance.setCellValueFactory(
@@ -83,19 +84,20 @@ public class MenuController implements Initializable, ControlledScreen {
 
             String u = "jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection(u, "root", null);
-            System.out.println("Database connection successful for Name Check.");
-            Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("select * from login where LoggedIn=true");
-            if (rset.next()) {
-                name = rset.getString("Name");
-                logger.info(name + " Logged In");
-            } else {
-                logger.info("No logged in user");
+            try (Connection conn = DriverManager.getConnection(u, "root", null)) {
+                System.out.println("Database connection successful for Name Check.");
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("select * from login where LoggedIn=true");
+                if (rset.next()) {
+                    name = rset.getString("Name");
+                    System.out.println("Name- "+name);
+                    LOGGER.info(name + " Logged In");
+                } else {
+                    LOGGER.info("No logged in user");
+                }
             }
-            conn.close();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-            logger.error("NameCheck", ex);
+            LOGGER.error("NameCheck", ex);
         }
     }
 
@@ -106,7 +108,10 @@ public class MenuController implements Initializable, ControlledScreen {
 
     @FXML
     public void onGenerate(ActionEvent e) {                      //Method to generate the report
-        //TODO
+    /* Document doc =new Document();
+        PdfWriter.getInstance(doc, new FileOutputStream("details.pdf"));
+        doc.add(new Paragraph());
+        */
     }
 
     @FXML
@@ -122,36 +127,36 @@ public class MenuController implements Initializable, ControlledScreen {
                 System.out.println("Database connection successful for punchIn.");
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate("update login set Attendance=Attendance+1 where Name='" + name + "'");
-                System.out.println("Name: "+name);
+                System.out.println("Name: " + name);
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-                logger.error("punchOut", ex);
+                LOGGER.error("punchOut", ex);
             }
             punchOut.setDisable(true);
         }
     }
 
-    @FXML
+    @FXML                                                            // logout method 
     public void onLogout(MouseEvent me) {
         try {
             String url = "jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             Connection conn = DriverManager.getConnection(url, "root", null);
-            System.out.println("Database connection successful for punchIn.");
+            System.out.println("Database connection successful for logout.");
             Statement stmt2 = conn.createStatement();
             int rset2 = stmt2.executeUpdate("update login set LoggedIn=FALSE where Username='" + name + "'");
-            System.out.println("Logged Out successfully" + rset2);
+            System.out.println("Logged Out successfully");
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-            logger.error("On Logging out:", ex);
+            LOGGER.error("On Logging out:", ex);
         }
         myController.setScreen(AttendanceUpdater.loginID);
     }
 
-    @FXML
+    @FXML                                                            // method called after check percentage button is pressed
     public void onCheck(ActionEvent a) {
         try {
             String url = "jdbc:mysql://localhost:3306/satyam";
-            int att = 0, total = 0;
-            Double per = 0.0;
+            int att, total;
+            Double per;
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             Connection conn = DriverManager.getConnection(url, "root", null);
             System.out.println("Database connection successful.");
@@ -160,9 +165,9 @@ public class MenuController implements Initializable, ControlledScreen {
             if (rset3.next()) {
                 att = rset3.getInt("Attendance");
                 total = rset3.getInt("Total");
-                per = (double) (att / total) * 100;
+                per = (((double)att / (double)total) * 100.0);
             } else {
-                logger.info("ResultSet empty for percentage check");
+                LOGGER.info("ResultSet empty for percentage check");
                 return;
             }
 
@@ -172,7 +177,7 @@ public class MenuController implements Initializable, ControlledScreen {
             table.setItems(data);
 
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
-            logger.error("Percentage Check", e);
+            LOGGER.error("Percentage Check", e);
         }
         table.setDisable(false);
     }

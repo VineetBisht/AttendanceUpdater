@@ -8,9 +8,11 @@ package main.UI;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -35,7 +37,7 @@ import org.apache.log4j.Logger;
 
 public class RegisterController implements Initializable, ControlledScreen{
    
-    private static final Logger logger=Logger.getLogger(RegisterController.class);
+    private static final Logger LOGGER=Logger.getLogger(RegisterController.class);
     ScreensController myController;
     
     @FXML
@@ -144,12 +146,19 @@ public class RegisterController implements Initializable, ControlledScreen{
                     +"','"+pass
                     +"','"+address.getText()
                     +"','"+phone.getText()
-                    +"',0,0,false)");
+                    +"',0,0,false,0)");
             
-            }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
-            logger.error("insert",e);
+            java.util.Date date=new java.util.Date();
+            Timestamp timestamp=new Timestamp(date.getTime());
+            PreparedStatement prep=conn.prepareStatement("insert into dates values(?,?,FALSE,NULL,FALSE,NULL");
+            prep.setString(1, name.getText());
+            prep.setTimestamp(2, timestamp);
+            prep.execute();
+            System.out.println(prep.getUpdateCount());
+            conn.close();
+       }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
+            LOGGER.error("insert",e);
            }
-        
     }
     public boolean nameCheck(){                             // To check whether the name already exists or not
        try{
@@ -164,7 +173,7 @@ public class RegisterController implements Initializable, ControlledScreen{
              return true;   
             }
             }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
-            logger.error("nameCheck",e);
+            LOGGER.error("nameCheck",e);
             }
         return false;
         }

@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  *
  * @author Vineet
  */
-public class Percentage {
+public class Percentage {                               
 private final SimpleIntegerProperty att;
 private final SimpleIntegerProperty total;
 private final SimpleDoubleProperty percentage;

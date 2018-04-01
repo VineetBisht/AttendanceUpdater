@@ -34,7 +34,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="145.0">
                <children>
-                  <TextField fx:id="search" layoutX="6.0" layoutY="7.0" prefHeight="35.0" prefWidth="138.0" promptText="Search By Name" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="7.0" />
+                  <TextField fx:id="search" layoutX="6.0" layoutY="7.0" onKeyReleased="#onPressed" prefHeight="35.0" prefWidth="138.0" promptText="Search By Name" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="7.0" />
                   <ListView fx:id="results" layoutX="6.0" layoutY="54.0" prefHeight="439.0" prefWidth="138.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="54.0" />
                </children>
             </AnchorPane>

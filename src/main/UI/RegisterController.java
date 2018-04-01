@@ -117,6 +117,7 @@ public class RegisterController implements Initializable, ControlledScreen{
              error.setVisible(true);
              fadeIn.playFromStart(); 
             }
+            myController.setScreen(AttendanceUpdater.loginID);
         }
   
     }
@@ -150,7 +151,9 @@ public class RegisterController implements Initializable, ControlledScreen{
             
             java.util.Date date=new java.util.Date();
             Timestamp timestamp=new Timestamp(date.getTime());
-            PreparedStatement prep=conn.prepareStatement("insert into dates values(?,?,FALSE,NULL,FALSE,NULL");
+            PreparedStatement prep=conn.prepareStatement("insert into dates"
+                    + "(Name, Registration, FirstFee, FirstDate, SecondFee, SecondDate) values"
+                    + "(?,?,FALSE,NULL,FALSE,NULL)");
             prep.setString(1, name.getText());
             prep.setTimestamp(2, timestamp);
             prep.execute();
@@ -160,6 +163,7 @@ public class RegisterController implements Initializable, ControlledScreen{
             LOGGER.error("insert",e);
            }
     }
+    
     public boolean nameCheck(){                             // To check whether the name already exists or not
        try{
             String userName=username.getText();

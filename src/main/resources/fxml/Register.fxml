@@ -20,12 +20,12 @@
             <Image url="@../images/68498060-school-wallpapers.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="73.0" fitWidth="60.0" layoutX="197.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="73.0" fitWidth="60.0" layoutX="116.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/if_ilustracoes_04-01_1519777.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="68.0" fitWidth="181.0" layoutX="266.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="68.0" fitWidth="181.0" layoutX="192.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/cooltext278766195202545.png" />
          </image>
@@ -37,7 +37,7 @@
       <TextField fx:id="name" layoutX="221.0" layoutY="102.0" promptText="eg. Daniel" />
       <TextField fx:id="username" layoutX="220.0" layoutY="148.0" promptText="eg. harrypotter" />
       <Button fx:id="register" defaultButton="true" layoutX="458.0" layoutY="344.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="38.0" prefWidth="105.0" stylesheets="@../styles/button.css" text="Register" />
-      <Label fx:id="error" alignment="CENTER" layoutX="260.0" layoutY="274.0" prefHeight="38.0" prefWidth="198.0" stylesheets="@../styles/button.css" visible="false" />
+      <Label fx:id="error" alignment="CENTER" layoutX="379.0" layoutY="38.0" prefHeight="38.0" prefWidth="198.0" stylesheets="@../styles/button2.css" visible="false" />
       <PasswordField fx:id="password" layoutX="220.0" layoutY="192.0" promptText="*****" />
       <PasswordField fx:id="repassword" layoutX="220.0" layoutY="237.0" promptText="*****" />
       <ImageView fx:id="back" fitHeight="60.0" fitWidth="60.0" layoutX="9.0" layoutY="8.0" onMouseClicked="#letsGoBack" pickOnBounds="true" preserveRatio="true">

@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ToolBar prefHeight="43.0" prefWidth="771.0" stylesheets="@../styles/button.css" AnchorPane.bottomAnchor="474.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="657.0" stylesheets="@../styles/button.css" AnchorPane.bottomAnchor="478.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <Button fx:id="edit" mnemonicParsing="false" text="Edit" />
-            <Button fx:id="save" disable="true" mnemonicParsing="false" text="Save" />
+            <StackPane>
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                      <Button fx:id="edit" mnemonicParsing="false" prefHeight="33.0" prefWidth="92.0" text="Edit">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="save" disable="true" mnemonicParsing="false" text="Save">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <CheckBox disable="true" mnemonicParsing="false" stylesheets="@../styles/button.css" text="1st Installment">
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </CheckBox>
+                        <CheckBox disable="true" mnemonicParsing="false" stylesheets="@../styles/button.css" text="2nd Installment">
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </CheckBox>
+                     </children>
+                  </HBox>
+               </children>
+            </StackPane>
         </items>
       </ToolBar>
       <TableView fx:id="table" layoutY="44.0" prefHeight="474.0" prefWidth="771.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0" />

@@ -1,7 +1,5 @@
 package main.UI;
 
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,6 +7,11 @@ package main.UI;
  */
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -20,6 +23,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import main.bg.ControlledScreen;
@@ -33,11 +37,18 @@ public class MAController implements Initializable, ControlledScreen {
 
     static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MAController.class);
     ScreensController myController;
-  @FXML
+
+    @FXML
     private MenuItem save;
 
     @FXML
-    private MenuItem saveNlog;
+    private MenuItem generate;
+
+    @FXML
+    private MenuItem saveNexit;
+
+    @FXML
+    private MenuItem exit;
 
     @FXML
     private MenuItem about;
@@ -52,36 +63,47 @@ public class MAController implements Initializable, ControlledScreen {
     private TabPane tabs;
 
     private void onSelect() {
-            }
+    }
 
     @FXML
     public void onSearch(MouseEvent me) {
     }
 
+    @FXML
+    public void onPressed(KeyEvent ke) {
+        try {
+            results.getItems().clear();
+            String loc = "jdbc:mysql://localhost:3306/satyam";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(loc, "root", null);
+            System.out.println("Database connection successful for Name Check.");
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("select * from login where Name LIKE '" + search.getText().trim() + "%'");
+            System.out.println(search.getText().trim());
+            while (rset.next()) {
+                results.getItems().add(rset.getString("Name"));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            LOGGER.error("NameCheck", ex);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        results.getItems().addAll("temp1", "temp2");
         results.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            int i = results.getSelectionModel().getSelectedIndex();
+            String selected = results.getSelectionModel().getSelectedItem();
             try {
                 Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("/main/resources/fxml/Tab.fxml"));
-               
-                if (i == 0) {
-                    Tab tb = new Tab("temp1", node);
-                    tabs.getTabs().add(tb);
-                    
-                } else if (i == 1) {
-                    Tab tb = new Tab("temp2", node);
-                    tabs.getTabs().add(tb);
-                    
-                }
-                
+                Tab tb = new Tab(selected, node);
+                tabs.getTabs().add(tb);
+
             } catch (IOException ex) {
-                LOGGER.error("Admin Tab: " + ex);
+                LOGGER.error("Results Initialize: " + ex);
             }
         });
 
- }
+        onPressed(null);
+    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {

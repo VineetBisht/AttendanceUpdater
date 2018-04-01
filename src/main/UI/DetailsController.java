@@ -111,7 +111,9 @@ public class DetailsController implements Initializable, ControlledScreen{
                 alt2=true;
             });
             
-            
+            firstFee.setDisable(true);
+            secondFee.setDisable(true);
+                
             String con = "jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(con, "root", null);
@@ -133,19 +135,20 @@ public class DetailsController implements Initializable, ControlledScreen{
             reg.setText(rset2.getTimestamp("Registration").toString());
 
             if (rset2.getBoolean("FirstFee") && !(rset2.getBoolean(("SecondFee")))) {
-                secondFee.setDisable(false);
-                firstFee.setSelected(true);
-                firstFee.setDisable(true);
-                fee1.setText(rset2.getTimestamp("FirstDate").toString());
-            } else if (rset2.getBoolean("FirstFee") && rset2.getBoolean(("SecondFee"))) {
-                firstFee.setSelected(true);
-                secondFee.setSelected(true);
+            System.out.println("First");
                 firstFee.setDisable(true);
                 secondFee.setDisable(true);
+                firstFee.setSelected(true);
+                fee1.setText(rset2.getTimestamp("FirstDate").toString());
+            } else if (rset2.getBoolean("FirstFee") && rset2.getBoolean(("SecondFee"))) {
+                System.out.println("Second");
+                firstFee.setSelected(true);
+                secondFee.setSelected(true);
                 fee1.setText(rset2.getTimestamp("FirstDate").toString());
                 fee2.setText(rset2.getTimestamp("SecondDate").toString());
             } else {
-                fee1.setDisable(true);
+                 System.out.println("Third");
+               fee1.setDisable(true);
                 fee2.setDisable(true);
             }
             
@@ -165,21 +168,19 @@ public class DetailsController implements Initializable, ControlledScreen{
             Statement s = conn3.createStatement();
             ResultSet r = s.executeQuery("select * from dates WHERE Name='" + NAME + "'");
             r.next();
-            System.out.println("First: "+r.getBoolean("FirstFee"));
-            System.out.println("Second: "+r.getBoolean("SecondFee"));
             
             if (r.getBoolean("FirstFee") && !(r.getBoolean(("SecondFee")))) {
                 secondFee.setDisable(false);
-                firstFee.setSelected(true);
                 firstFee.setDisable(true);
             } else if (r.getBoolean("FirstFee") && r.getBoolean(("SecondFee"))) {
-                firstFee.setSelected(true);
-                secondFee.setSelected(true);
                 firstFee.setDisable(true);
                 secondFee.setDisable(true);
             } else {
+                firstFee.setDisable(false);
+                secondFee.setDisable(false);
                 fee1.setDisable(true);
                 fee2.setDisable(true);
+                
             }
             
             name.setEditable(true);
@@ -217,8 +218,8 @@ public class DetailsController implements Initializable, ControlledScreen{
                     + "update login "
                     + "set "
                     + "Name=?,"
-                    + "Address=?"
-                    + "Phone=?"
+                    + "Address=?,"
+                    + "Phone=? "
                     + "where Name=?");
             prep2.setString(1, name.getText());
             prep2.setString(2, add.getText());
@@ -232,33 +233,33 @@ public class DetailsController implements Initializable, ControlledScreen{
                         + "update dates "
                         + "set "
                         + "FirstDate=?,"
-                        + "SecondDate=?"
+                        + "SecondDate=? "
                         + "where Name=?");
                 prep3.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
                 prep3.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
                 prep3.setString(3, NAME);
-                prep3.execute();
+                prep3.executeUpdate();
             } else if (alt1 && !alt2) {
-                PreparedStatement prep3 = conn6.prepareStatement(""
-                        + "update dates "
+                PreparedStatement prep3 = conn6.prepareStatement(
+                         "update dates "
                         + "set "
-                        + "FirstDate=?,"
+                        + "FirstDate=? "
                         + "where Name=?");
                 prep3.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
                 prep3.setString(2, NAME);
-                prep3.execute();
+                prep3.executeUpdate();
             } else if (!alt1 && alt2) {
                 PreparedStatement prep3 = conn6.prepareStatement(""
                         + "update dates "
                         + "set "
-                        + "SecondDate=?,"
+                        + "SecondDate=? "
                         + "where Name=?");
                 prep3.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
                 prep3.setString(2, NAME);
-                prep3.execute();
+                prep3.executeUpdate();
             }
-            prep.execute();
-            prep2.execute();
+            prep.executeUpdate();
+            prep2.executeUpdate();
             unsaved=false;
             done.setText("Success!");
             FadeTransition fadeIn = new FadeTransition(Duration.millis(1500), done);
@@ -270,7 +271,7 @@ public class DetailsController implements Initializable, ControlledScreen{
                 fadeIn.playFromStart();
             }
         } catch (ClassNotFoundException | SQLException e) {
-            LOGGER.error("Updating info: " + e);
+           e.printStackTrace();
         }
     }
 

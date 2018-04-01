@@ -31,12 +31,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <CheckBox fx:id="firstFee" disable="true" mnemonicParsing="false" style="-fx-text-fill: maroon;" text="1st Installment">
+                        <CheckBox fx:id="firstFee" mnemonicParsing="false" style="-fx-text-fill: maroon;" text="1st Installment">
                            <padding>
                               <Insets right="10.0" />
                            </padding>
                         </CheckBox>
-                        <CheckBox fx:id="secondFee" disable="true" mnemonicParsing="false" style="-fx-text-fill: maroon;" text="2nd Installment">
+                        <CheckBox fx:id="secondFee" mnemonicParsing="false" style="-fx-text-fill: maroon;" text="2nd Installment">
                            <padding>
                               <Insets right="10.0" />
                            </padding>

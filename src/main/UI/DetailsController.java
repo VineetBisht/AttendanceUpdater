@@ -5,30 +5,27 @@
  */
 package main.UI;
 
-import com.sun.javafx.scene.control.behavior.TabPaneBehavior;
-import com.sun.javafx.scene.control.skin.TabPaneSkin;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.Optional;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import main.bg.ControlledScreen;
@@ -113,6 +110,13 @@ public class DetailsController implements Initializable, ControlledScreen{
             
             firstFee.setDisable(true);
             secondFee.setDisable(true);
+            name.setEditable(false);
+            add.setEditable(false);
+            ph.setEditable(false);
+            save.setDisable(true);
+            edit.setDisable(false);
+            update.setDisable(true);
+    
                 
             String con = "jdbc:mysql://localhost:3306/satyam";
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -132,20 +136,22 @@ public class DetailsController implements Initializable, ControlledScreen{
             att.setText(String.valueOf(rset.getInt("Attendance")));
             tot.setText(String.valueOf(rset.getInt("Total")));
 
-            reg.setText(rset2.getTimestamp("Registration").toString());
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            reg.setText(dateFormat.format(rset2.getTimestamp("Registration")));
 
             if (rset2.getBoolean("FirstFee") && !(rset2.getBoolean(("SecondFee")))) {
             System.out.println("First");
                 firstFee.setSelected(true);
-                fee1.setText(rset2.getTimestamp("FirstDate").toString());
+                fee1.setText(dateFormat.format(rset2.getTimestamp("FirstDate")));
+             
             } else if (rset2.getBoolean("FirstFee") && rset2.getBoolean(("SecondFee"))) {
                 System.out.println("Second");
                 firstFee.setSelected(true);
                 secondFee.setSelected(true);
-                fee1.setText(rset2.getTimestamp("FirstDate").toString());
-                fee2.setText(rset2.getTimestamp("SecondDate").toString());
-            } else {
-                 System.out.println("Third");
+                fee1.setText(dateFormat.format(rset2.getTimestamp("FirstDate")));
+                fee2.setText(dateFormat.format(rset2.getTimestamp("SecondDate")));
+             } else {
+               System.out.println("Third");
                fee1.setDisable(true);
                fee2.setDisable(true);
             }
@@ -234,17 +240,25 @@ public class DetailsController implements Initializable, ControlledScreen{
                         + "FirstDate=?,"
                         + "SecondDate=? "
                         + "where Name=?");
-                prep3.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
-                prep3.setTimestamp(2, new Timestamp(new java.util.Date().getTime()));
+                long date=new java.util.Date().getTime();
+                Timestamp ts = new Timestamp(date);
+            
+                prep3.setTimestamp(1, ts);
+                prep3.setTimestamp(2, ts);
                 prep3.setString(3, NAME);
                 prep3.executeUpdate();
+            
+            
             } else if (alt1 && !alt2) {
                 PreparedStatement prep3 = conn6.prepareStatement(
                          "update dates "
                         + "set "
                         + "FirstDate=? "
                         + "where Name=?");
-                prep3.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
+                long date=new java.util.Date().getTime();
+                Timestamp ts = new Timestamp(date);
+            
+                prep3.setTimestamp(1, ts);
                 prep3.setString(2, NAME);
                 prep3.executeUpdate();
             } else if (!alt1 && alt2) {
@@ -253,7 +267,9 @@ public class DetailsController implements Initializable, ControlledScreen{
                         + "set "
                         + "SecondDate=? "
                         + "where Name=?");
-                prep3.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
+                long date=new java.util.Date().getTime();
+                Timestamp ts = new Timestamp(date);
+                prep3.setTimestamp(1, ts);
                 prep3.setString(2, NAME);
                 prep3.executeUpdate();
             }
@@ -272,6 +288,7 @@ public class DetailsController implements Initializable, ControlledScreen{
         } catch (ClassNotFoundException | SQLException e) {
            e.printStackTrace();
         }
+    initialize(null,null);
     }
 
 }

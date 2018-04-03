@@ -49,8 +49,8 @@ public class ManualController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       list = new ListView<>();
-        list.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+ 
+        /*       list.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
           @Override
             public ObservableValue<Boolean> call(String item) {
                 BooleanProperty observable = new SimpleBooleanProperty();
@@ -59,7 +59,7 @@ public class ManualController implements Initializable {
                 );
                 return observable ;
             }}));
-  // TODO
+  */
     }    
     
 }

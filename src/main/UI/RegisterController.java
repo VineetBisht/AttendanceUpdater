@@ -13,6 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -149,13 +153,14 @@ public class RegisterController implements Initializable, ControlledScreen{
                     +"','"+phone.getText()
                     +"',0,0,false,0)");
             
-            java.util.Date date=new java.util.Date();
-            Timestamp timestamp=new Timestamp(date.getTime());
+            
             PreparedStatement prep=conn.prepareStatement("insert into dates"
                     + "(Name, Registration, FirstFee, FirstDate, SecondFee, SecondDate) values"
                     + "(?,?,FALSE,NULL,FALSE,NULL)");
             prep.setString(1, name.getText());
-            prep.setTimestamp(2, timestamp);
+            Timestamp ts=new Timestamp(System.currentTimeMillis());
+            prep.setTimestamp(2,ts);
+            
             prep.execute();
             System.out.println(prep.getUpdateCount());
             conn.close();

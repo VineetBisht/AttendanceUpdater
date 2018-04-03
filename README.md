@@ -5,7 +5,7 @@ This is a project which aims on letting employers track their employee's attenda
 >**Admin panel** is able to edit and check the details of their employees 
 >Still in the development phase
 
-##Progress 
+## Progress 
 - [x] Initial Phase
 - [x] Developing Main Modules
 - [ ] Fixing Bugs **(Current Phase)**

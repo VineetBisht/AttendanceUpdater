@@ -11,6 +11,6 @@ This is a project which aims on letting employers track their employee's attenda
 - [ ] Fixing Bugs **(Current Phase)**
 - [ ] Completion
 
-##Contact Me: :mailbox:
+## Contact Me: :mailbox:
 
 'vineetbisht2013@gmail.com' for any further questions.

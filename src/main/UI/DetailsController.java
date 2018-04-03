@@ -16,7 +16,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.beans.value.ObservableValue;
@@ -157,7 +156,7 @@ public class DetailsController implements Initializable, ControlledScreen{
             }
             
         } catch (ClassNotFoundException | SQLException ex) {
-           ex.printStackTrace();
+          LOGGER.error("Details Init: ",ex);
         }
     }
 

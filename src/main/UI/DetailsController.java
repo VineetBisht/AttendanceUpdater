@@ -126,7 +126,7 @@ public class DetailsController implements Initializable, ControlledScreen{
             System.out.println("name :"+NAME);
             rset.next();
             rset2.next();
-            name.setText(rset.getString("Name"));
+            name.setText(rset.getString("Name")); 
             add.setText(rset.getString("Address"));
             ph.setText(rset.getString("Phone"));
             att.setText(String.valueOf(rset.getInt("Attendance")));
@@ -136,8 +136,6 @@ public class DetailsController implements Initializable, ControlledScreen{
 
             if (rset2.getBoolean("FirstFee") && !(rset2.getBoolean(("SecondFee")))) {
             System.out.println("First");
-                firstFee.setDisable(true);
-                secondFee.setDisable(true);
                 firstFee.setSelected(true);
                 fee1.setText(rset2.getTimestamp("FirstDate").toString());
             } else if (rset2.getBoolean("FirstFee") && rset2.getBoolean(("SecondFee"))) {
@@ -149,7 +147,7 @@ public class DetailsController implements Initializable, ControlledScreen{
             } else {
                  System.out.println("Third");
                fee1.setDisable(true);
-                fee2.setDisable(true);
+               fee2.setDisable(true);
             }
             
         } catch (ClassNotFoundException | SQLException ex) {
@@ -172,6 +170,7 @@ public class DetailsController implements Initializable, ControlledScreen{
             if (r.getBoolean("FirstFee") && !(r.getBoolean(("SecondFee")))) {
                 secondFee.setDisable(false);
                 firstFee.setDisable(true);
+                fee1.setDisable(true);
             } else if (r.getBoolean("FirstFee") && r.getBoolean(("SecondFee"))) {
                 firstFee.setDisable(true);
                 secondFee.setDisable(true);

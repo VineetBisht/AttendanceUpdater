@@ -12,17 +12,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
@@ -42,6 +42,9 @@ public class MAController implements Initializable, ControlledScreen {
     static org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MAController.class);
     ScreensController myController;
     static String NAME;
+
+    @FXML
+    private Button attendance;
 
     @FXML
     private MenuItem save;
@@ -66,7 +69,7 @@ public class MAController implements Initializable, ControlledScreen {
 
     @FXML
     private TabPane tabs;
-    
+
     @FXML
     public void onPressed(KeyEvent ke) {
         try {
@@ -90,17 +93,32 @@ public class MAController implements Initializable, ControlledScreen {
     public void initialize(URL location, ResourceBundle resources) {
         results.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             String selected = results.getSelectionModel().getSelectedItem();
-            NAME=selected;
+            NAME = selected;
             try {
-                FXMLLoader fxmlLoader=new FXMLLoader();
                 Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("/main/resources/fxml/Tab.fxml"));
                 Tab tb = new Tab(selected, node);
                 tabs.getTabs().add(tb);
-                
+
             } catch (IOException ex) {
                 LOGGER.error("Results Initialize: " + ex);
             }
         });
+
+        EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    Node node = (AnchorPane) FXMLLoader.load(getClass().getResource("/main/resources/fxml/Manual.fxml"));
+                    Tab tb = new Tab("Manual Attendance", node);
+                    tabs.getTabs().add(tb);
+                    event.consume();
+                } catch (IOException ex) {
+                    Logger.getLogger(MAController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        attendance.setOnAction(buttonHandler);
 
         onPressed(null);
     }
